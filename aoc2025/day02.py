@@ -2,26 +2,43 @@ def solve(input_path):
     
     line = input_path.open('r').read().strip().split(",")
 
+    def largest(num_digits):
+        return "9" * num_digits
+    
+    def smallest(num_digits):
+        return "1" + "0" * (num_digits - 1)
+    
+    def invalid_sum(start, end, shard_lens):
+        invalids = set()
+        for shard_len in shard_lens:
+            if len(start) % shard_len != 0:
+                continue
+            num_shards = len(start) // shard_len
+            start_shard = start[:shard_len]
+            end_shard = end[:shard_len]
+            for shard in range(int(start_shard), int(end_shard) + 1):
+                shard = str(shard)
+                if int(start) <= int(shard*num_shards) <= int(end):
+                    invalids.add(int(shard*num_shards))
+        return sum(invalids)
+    
+    ranges = []
+    for r in line:
+        start, end = r.split("-")
+        if (len(start) == len(end)):
+            ranges.append((start, end))
+        else:
+            ranges.append((start, largest(len(start))))
+            ranges.append((smallest(len(end)), end))
+
     part1 = 0
     part2 = 0
+    for r in ranges:
+        start, end = r
+        if len(start) % 2 == 0:
+            part1 += invalid_sum(start, end, (len(start) // 2,))
+        part2 += invalid_sum(start, end, range(1, len(start) // 2 + 1))
 
-    def valid1(id):
-        return id[:len(id) // 2] != id[len(id) // 2:]
-    
-    def valid2(id):
-        for length in range(1, len(id) // 2 + 1):
-            if (id == id[:length] * (len(id) // length)):
-                return False
-        return True
-    
-    for r in line:
-        start, end = map(int, r.split("-"))
-        for id in range(start, end + 1):
-            if not valid1(str(id)):
-                part1 += id
-            if not valid2(str(id)):
-                part2 += id
-                
     return part1, part2
 
 if __name__ == "__main__":
