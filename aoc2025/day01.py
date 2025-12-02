@@ -8,13 +8,14 @@ def solve(input_path):
     dial = 50
     for line in lines:
         move = int(line[1:])
-        sign, dist_to_zero = (-1, dial) if line[0] == "L" else (1, 100 - dial)
-        
+        sign = -1 if line[0] == "L" else 1
+        dist_to_zero = dial if line[0] == "L" or dial == 0 else 100 - dial
+
         part2 += move // 100
-        part2 += move > dist_to_zero
-        
+        part2 += (move % 100) > dist_to_zero
+
         dial = (dial + sign * move) % 100
-        
+
         part1 += dial == 0
 
     return part1, part2
