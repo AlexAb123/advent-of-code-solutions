@@ -8,21 +8,26 @@ def solve(input_path):
     def smallest(num_digits):
         return "1" + "0" * (num_digits - 1)
     
-    def invalid_sum(start, end, shard_lens):
+    def invalid_sum(start, end, fragment_lens):
+        # Generate invalid ids by checking all possible fragment lengths
+        # and testing if the string made up of those fragments duplicated is in the range
         invalids = set()
-        for shard_len in shard_lens:
-            if len(start) % shard_len != 0:
+        for fragment_len in fragment_lens:
+            if len(start) % fragment_len != 0:
                 continue
-            num_shards = len(start) // shard_len
-            start_shard = start[:shard_len]
-            end_shard = end[:shard_len]
-            for shard in range(int(start_shard), int(end_shard) + 1):
-                shard = str(shard)
-                if int(start) <= int(shard*num_shards) <= int(end):
-                    invalids.add(int(shard*num_shards))
+            num_fragments = len(start) // fragment_len
+            start_fragment = start[:fragment_len]
+            end_fragment = end[:fragment_len]
+            for fragment in range(int(start_fragment), int(end_fragment) + 1):
+                fragment = str(fragment)
+                if int(start) <= int(fragment*num_fragments) <= int(end):
+                    invalids.add(int(fragment*num_fragments))
         return sum(invalids)
     
     ranges = []
+    # Make all start and ends of every range have the same number of digits
+    # 50-120 becomes 50-99 and 100-120
+    # Uses the fact that all ranges in the input only have at most more 1 digit in the end number than the start number
     for r in line:
         start, end = r.split("-")
         if (len(start) == len(end)):

@@ -1,11 +1,19 @@
 def solve(input_path):
 
-    lines = input_path.open('r').read().strip().split("\n")
+    batteries = input_path.open('r').read().strip().split("\n")
 
-    part1 = 0
-    part2 = 0
-
+    def joltage(battery, num_remove):
+        window_size = num_remove + 1
+        if num_remove == 0:
+            return battery
+        if len(battery) == num_remove:
+            return ""
+        window = battery[:window_size]
+        max_index = window.index(str(max(map(int, list(window)))))
+        return battery[max_index] + joltage(battery[max_index + 1:], num_remove - max_index)
     
+    part1 = sum(int(joltage(battery, len(battery) - 2)) for battery in batteries)
+    part2 = sum(int(joltage(battery, len(battery) - 12)) for battery in batteries)
 
     return part1, part2
 
