@@ -5,7 +5,7 @@ def solve(input_path):
     part1 = 0
     part2 = 0
 
-    day05test
+
 
     return part1, part2
 
