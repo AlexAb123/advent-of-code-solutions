@@ -1,29 +1,27 @@
 def solve(input_path):
 
-    lines = list(map(list, input_path.open('r').read().strip().split("\n")))
+    lines = input_path.open('r').read().strip().split("\n")
     
     def get_adjs(r, c, lines):
-          for dr in -1, 0, 1:
+        for dr in -1, 0, 1:
             for dc in -1, 0, 1:
                 if dr == dc == 0:
                     continue
-                if not (0 <= r + dr < len(lines) and (0 <= c + dc < len(lines[0]))):
+                if not (0 <= r + dr < len(lines) and 0 <= c + dc < len(lines[0])):
                     continue
                 if lines[r + dr][c + dc] != "@":
                     continue
                 yield (r + dr, c + dc)
 
+    q = []
     adjs_count = {}
     for r in range(len(lines)):
         for c in range(len(lines[0])):
             if lines[r][c] != "@":
                 continue
             adjs_count[(r, c)] = len(list(get_adjs(r, c, lines)))
-
-    q = []
-    for (r, c), count in adjs_count.items():
-        if count < 4:
-            q.append((r, c))
+            if adjs_count[(r, c)] < 4:
+                q.append((r,c))
 
     part1 = len(q)
     seen = set(q)
