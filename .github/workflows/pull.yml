@@ -1,0 +1,40 @@
+name: Pull
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 2-13 12 *'
+
+env:
+  USERNAME: AlexAb123
+  SOURCE_REPO: advent-of-code
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Clone Source Repo
+        env:
+          SOURCE_REPO_PAT: ${{ secrets.SOURCE_REPO_PAT }}
+        run: |
+          git clone --depth 1 https://x-access-token:${SOURCE_REPO_PAT}@github.com/${{ env.USERNAME }}/${{ env.SOURCE_REPO }}.git source_repo
+
+      - name: Sync
+        run: rsync -av --exclude="*.txt" --exclude=".git" --exclude=".github" source_repo/ ./
+
+      - name: Add txt to gitignore
+        run: |
+          grep -q "^\*\.txt$" ./.gitignore || printf "\n*.txt\n" >> ./.gitignore
+          
+
+      - name: Commit and Push
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "$(date +'%Y') day$(date +'%-d' -d 'yesterday')"
+          git push
