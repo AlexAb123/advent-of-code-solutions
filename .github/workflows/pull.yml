@@ -28,6 +28,9 @@ jobs:
       - name: Sync
         run: rsync -av --exclude="*.txt" --exclude=".git" --exclude=".github" source_repo/ ./
 
+      - name: Cleanup source_repo
+        run: rm -rf source_repo
+        
       - name: Add txt to gitignore
         run: |
           grep -q "^\*\.txt$" ./.gitignore || printf "\n*.txt\n" >> ./.gitignore
