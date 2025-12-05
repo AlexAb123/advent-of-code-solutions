@@ -1,6 +1,6 @@
-def solve(input_path):
+def solve(data):
 
-    banks = input_path.open('r').read().strip().split("\n")
+    banks = data.split("\n")
 
     def joltage(bank, num_remove):
         window_size = num_remove + 1
@@ -21,6 +21,6 @@ if __name__ == "__main__":
     from pathlib import Path
     from time import time
     start = time()
-    part1, part2 = solve(Path(__file__).parent/"inputs"/"day03.txt")
+    part1, part2 = solve((Path(__file__).parent/"inputs"/"day03.txt").read_text().strip())
     print(f"Part 1: {part1}\nPart 2: {part2}")
     print(f"Time Taken: {(time() - start)*1000:.2f} ms")

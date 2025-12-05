@@ -18,10 +18,10 @@ for day in (map(str, range(1, days + 1))):
     try:
         module = importlib.import_module(f"aoc{year}.day{day}")
         start = time()
-        part1, part2 = module.solve(Path(f"aoc{year}{sep}inputs{sep}day{day}.txt"))
+        part1, part2 = module.solve((Path(f"aoc{year}{sep}inputs{sep}day{day}.txt").read_text().strip()))
         end = time()
         total_time += end - start
-        print(f"day{day}: Part 1: {part1:<15} Part 2: {part2:<15} {(end - start)*1000:.2f} ms")
+        print(f"day{day}: Part 1: {part1:<20} Part 2: {part2:<20} {(end - start)*1000:.2f} ms")
         total_days += 1
 
     except ModuleNotFoundError:
