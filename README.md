@@ -42,20 +42,21 @@ aoc2025/
 ### Generated File Template
 
 Each `dayXX.py` file comes with a starter template.
-Running a `dayXX.py` file directly sets the `input_path` parameter as the path to the correpsonding input file (`inputs/dayXX.txt`).
+Running a `dayXX.py` file directly sets the `data` parameter as string of the text in the correpsonding input file (`inputs/dayXX.txt`).
 Implement the `solve` function with `part1` and `part2` as your answers for each part respectively.
+The template for `day08.py` is shown below.
 
 ```python
-# day02.py
+# day08.py
 
-def solve(input_path):
+def solve(data):
 
-    lines = input_path.open('r').read().strip().split("\n")
+    lines = data.split("\n")
 
     part1 = 0
     part2 = 0
 
-
+    
 
     return part1, part2
 
@@ -63,7 +64,7 @@ if __name__ == "__main__":
     from pathlib import Path
     from time import time
     start = time()
-    part1, part2 = solve(Path(__file__).parent/"inputs"/"day02.txt")
+    part1, part2 = solve((Path(__file__).parent/"inputs"/"day08.txt").read_text().strip())
     print(f"Part 1: {part1}\nPart 2: {part2}")
     print(f"Time Taken: {(time() - start)*1000:.2f} ms")
 ```
