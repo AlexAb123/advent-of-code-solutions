@@ -17,8 +17,9 @@ for day in (map(str, range(1, days + 1))):
     # Import each file and measure time taken
     try:
         module = importlib.import_module(f"aoc{year}.day{day}")
+        data = (Path(f"aoc{year}{sep}inputs{sep}day{day}.txt").read_text().strip())
         start = time()
-        part1, part2 = module.solve((Path(f"aoc{year}{sep}inputs{sep}day{day}.txt").read_text().strip()))
+        part1, part2 = module.solve(data)
         end = time()
         total_time += end - start
         print(f"day{day}: Part 1: {part1:<20} Part 2: {part2:<20} {(end - start)*1000:.2f} ms")

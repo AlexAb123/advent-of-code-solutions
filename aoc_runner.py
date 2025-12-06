@@ -1,17 +1,9 @@
-def solve(data):
-
-    lines = data.split("\n")
-
-    part1 = part2 = 0
-
     
-
-    return part1, part2
-
-if __name__ == "__main__":
+def run(solve, file):
     from pathlib import Path
     from time import time
-    data = (Path(__file__).parent/"inputs"/"day09.txt").read_text().strip()
+    filepath = Path(file)
+    data = (filepath.parent/"inputs"/f"{filepath.stem}.txt").read_text().strip()
     start = time()
     part1, part2 = solve(data)
     print(f"Part 1: {part1}\nPart 2: {part2}")
