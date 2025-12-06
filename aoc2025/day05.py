@@ -1,7 +1,7 @@
 def solve(data):
 
     fresh, available = list(map(lambda x: x.split("\n"), data.split("\n\n")))
-    fresh = sorted([list(map(int, f.split("-"))) for f in fresh])
+    fresh = sorted([tuple(map(int, f.split("-"))) for f in fresh])
     available = list(map(int, available))
 
     combined = [fresh[0]]
