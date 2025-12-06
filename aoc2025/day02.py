@@ -36,8 +36,7 @@ def solve(data):
             ranges.append((start, largest(len(start))))
             ranges.append((smallest(len(end)), end))
 
-    part1 = 0
-    part2 = 0
+    part1 = part2 = 0
     for r in ranges:
         start, end = r
         if len(start) % 2 == 0:

@@ -1,11 +1,26 @@
+from math import prod
+
 def solve(data):
 
-    lines = data.split("\n")
+    *lines, ops = data.split("\n")
+    lines = [line + " " for line in lines]
 
-    part1 = 0
-    part2 = 0
-
+    part1 = part2 = 0
     
+    indices = [i for i, op in enumerate(ops) if op != " "] + [len(lines[0])]
+
+    for i in range(len(indices) - 1):
+        start = indices[i]
+        end = indices[i+1] - 1
+
+        nums = [list(line[start:end]) for line in lines]
+
+        nums1 = [int("".join(n).strip()) for n in nums]
+        nums2 = [int("".join(n).strip()) for n in zip(*nums)]
+
+        f = sum if ops[start] == "+" else prod
+        part1 += f(nums1)
+        part2 += f(nums2)
 
     return part1, part2
 

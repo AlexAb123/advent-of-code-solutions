@@ -2,8 +2,7 @@ def solve(data):
 
     lines = data.split("\n")
 
-    part1 = 0
-    part2 = 0
+    part1 = part2 = 0
 
     dial = 50
     for line in lines:

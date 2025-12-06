@@ -14,8 +14,7 @@ def solve(data):
         else:
             combined.append((l2, r2)) # Ranges don't overlap, append.
             
-    part1 = 0
-    part2 = 0
+    part1 = part2 = 0
     for l, r in combined:
         for num in available:
             if l <= num <= r:

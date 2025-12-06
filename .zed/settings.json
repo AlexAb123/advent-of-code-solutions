@@ -1,0 +1,11 @@
+{
+  "project_name": "hello",
+  "file_scan_exclusions": [
+    "**/__pycache__",
+    "**/*.pyc",
+    "**/*.pytest_cache",
+    ".ruff_cache",
+    ".git",
+    ".DS_Store"
+  ]
+}

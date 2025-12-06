@@ -5,8 +5,7 @@ file_template = """def solve(data):
 
     lines = data.split("\\n")
 
-    part1 = 0
-    part2 = 0
+    part1 = part2 = 0
 
     
 
