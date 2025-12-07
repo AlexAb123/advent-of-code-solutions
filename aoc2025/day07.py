@@ -1,13 +1,33 @@
+from functools import lru_cache
 def solve(data):
 
     lines = data.split("\n")
 
-    part1 = part2 = 0
-
+    splits = set()
+    for r in range(len(lines)):
+        for c in range(len(lines[0])):
+            if lines[r][c] == "S":
+                start = (r, c)
+            elif lines[r][c] == "^":
+                splits.add((r, c))
+                
+    global part1
+    part1 = 0
+    @lru_cache(maxsize=None)
+    def timelines(r, c):
+        if r >= len(lines):
+            return 1
+        if (r, c) in splits:
+            global part1
+            part1 += 1
+            return timelines(r, c+1) + timelines(r, c-1)
+        else:
+            return timelines(r+1, c)
+        
+    part2 = timelines(*start)
     
-
     return part1, part2
-
+    
 if __name__ == "__main__":
     from pathlib import Path
     from time import time
