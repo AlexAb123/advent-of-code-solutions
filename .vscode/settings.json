@@ -1,12 +1,10 @@
 {
-    "github-actions.workflows.pinned.workflows": [
-        ".github/workflows/sync.yml"
-    ],
-    "files.exclude": {
-        "**/__pycache__": true,
-        "**/*.pyc": true,
-        "**/*.pytest_cache": true,
-        ".ruff_cache": true
-    },
-    "ruff.enable": false
+  "github-actions.workflows.pinned.workflows": [".github/workflows/sync.yml"],
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/*.pytest_cache": true,
+    ".ruff_cache": true
+  },
+  "editor.formatOnSave": false
 }

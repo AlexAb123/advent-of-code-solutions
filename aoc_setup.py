@@ -7,7 +7,7 @@ file_template = """def solve(data):
 
     part1 = part2 = 0
 
-    
+
 
     return part1, part2
 
@@ -33,7 +33,7 @@ for day in (map(str, range(1, days + 1))):
 
     if len(day) == 1:
         day = "0" + day
-    
+
     # Create the python files
     path = Path(__file__).with_name("aoc" + year) / f"day{day}.py"
     if not os.path.exists(path):

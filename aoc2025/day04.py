@@ -1,7 +1,7 @@
 def solve(data):
 
     lines = data.split("\n")
-    
+
     def get_adjs(r, c, lines):
         for dr in -1, 0, 1:
             for dc in -1, 0, 1:
@@ -35,7 +35,7 @@ def solve(data):
                 q.append(adj)
                 seen.add(adj)
     part2 = len(seen)
-    
+
     return part1, part2
 
 if __name__ == "__main__":
