@@ -6,5 +6,7 @@
     "**/*.pytest_cache": true,
     ".ruff_cache": true
   },
-  "editor.formatOnSave": false
+  "[python]": {
+    "editor.formatOnSave": false
+  }
 }
