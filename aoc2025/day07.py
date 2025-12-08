@@ -17,10 +17,10 @@ def solve(data):
     def timelines(r, c):
         if r >= len(lines):
             return 1
-        if (r, c) in splits:
+        if (r + 1, c) in splits:
             global part1
             part1 += 1
-            return timelines(r, c + 1) + timelines(r, c - 1)
+            return timelines(r + 1, c + 1) + timelines(r + 1, c - 1)
         return timelines(r + 1, c)
 
     part2 = timelines(*start)
