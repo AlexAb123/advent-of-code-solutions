@@ -88,42 +88,23 @@ def solve(data):
     def query_prefix_sum(r1, c1, r2, c2): # Assumes (r1, c1) is the top left.
         return prefix_sum[r2+1][c2+1] - prefix_sum[r2+1][c1] - prefix_sum[r1][c2+1] + prefix_sum[r1][c1]
     part2 = 0
-    print(prefix_sum)
+    
     def rectangle_area(p1, p2):
         r1, c1 = p1
         r2, c2 = p2
         return (abs(r1 - r2) + 1) * (abs(c1 - c2) + 1)
     
-    # For every rectangle, check if any of the tiles in its perimeter is outside. If yes, then it is not a valid rectangle
+    # For every rectangle, check if the number of inside tiles (using the prefix sum) is the same as the area of the rectangle
     while True:
         area, p1_idx, p2_idx = heappop_max(rectangles)
         p1 = compressed_points[p1_idx]
         p2 = compressed_points[p2_idx]
         r1, c1 = p1
         r2, c2 = p2
-
-        valid = True
-        for c in range(min(c1, c2), max(c1, c2) + 1):
-            if (r1, c) in outside:
-                valid = False
-                break
-            if (r2, c) in outside:
-                valid = False
-                break
-        if not valid:
-            continue
-        
-        for r in range(min(r1, r2), max(r1, r2) + 1):
-            if (r, c1) in outside:
-                valid = False
-                break
-            if (r, c2) in outside:
-                valid = False
-                break
-        if valid:
+        if rectangle_area(p1, p2) == query_prefix_sum(min(r1, r2), min(c1, c2), max(r1, r2), max(c1, c2)):
             part2 = area
             break
-        
+      
     return part1, part2
 
 if __name__ == "__main__":
