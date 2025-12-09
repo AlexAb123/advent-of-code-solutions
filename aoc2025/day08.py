@@ -1,36 +1,41 @@
 from math import dist, prod
 from itertools import combinations
+from collections import defaultdict
 
 def solve(data):
 
     lines = list(map(lambda line: tuple(map(int, line.split(","))), data.split("\n")))
 
     parent = {}
-    size = {} # Call using size(find(x))
-
+    
     def find(x):
-        if x not in parent: # If it'sd a new node, set its root to itself and it's size to 1
+        if x not in parent: # If it's a new node, set its root to itself
             parent[x] = x
-            size[x] = 1
         if parent[x] != x: # If it's not its own root, set its parent to the root of its parent
             parent[x] = find(parent[x])
         return parent[x]
-    
+        
     def union(x, y):
-        rootx, rooty, = find(x), find(y)
-        if rootx != rooty: # If they are in different sets, union them and add their sizes
-            parent[rooty] = rootx
-            size[rootx] += size.pop(rooty)
-
+        parent[find(x)] = find(y)
+        
     connections = sorted(combinations(lines, 2), key=lambda p: dist(*p))
     
+    edges = 0
     for i, (p1, p2) in enumerate(connections):
-        union(p1, p2)
-        if size[find(p1)] >= len(lines):
+        
+        if find(p1) != find(p2):
+            union(p1, p2)
+            edges += 1
+            
+        if i == 999: # If we are on the 1000th connection, part 1 is the product the sizes of the 3 largest circuits 
+            sizes = defaultdict(int)
+            for p in parent:
+                sizes[find(p)] += 1
+            part1 = prod(sorted(sizes.values(), reverse=True)[:3])
+            
+        if edges == len(lines) - 1: # If we have made every edge in the MST except for the last one, part2 is found
+            part2 = p1[0] * p2[0]
             break
-        if i == 1000:
-            part1 = prod(sorted(size.values(), reverse=True)[:3])
-    part2 = p1[0] * p2[0]
 
     return part1, part2
 
