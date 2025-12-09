@@ -51,21 +51,15 @@ def solve(data):
                 return True
         return False
     
-    corner_rows = sorted(set(r for r, c in lines))
-    print(corner_rows)
-    from bisect import bisect_left, bisect_right
     possible = set()
     for p1, p2 in combos:
         r1, c1 = p1
         r2, c2 = p2
 
         found = True
-        # [min(r1, r2), max(r1, r2)]: # can do something like this, have to check columns too tho, this is checking that the sides of the rectangle don't intersect with the polygon
         r_min, r_max = min(r1, r2), max(r1, r2)
-        start = bisect_left(corner_rows, r_min)
-        end = bisect_right(corner_rows, r_max)
-        for i in range(start, end):
-            r = corner_rows[i]
+
+        for r in range(r_min, r_max):
             rang = (min(c1, c2), max(c1, c2))
             if not valid_range(rang, inside_ranges[r]):
                 found = False
