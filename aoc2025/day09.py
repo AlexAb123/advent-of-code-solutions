@@ -37,18 +37,16 @@ def solve(data):
     rows = max_r + 2 * row_pad # Padding on both bottom and top
     cols = max_c + 2 * col_pad # Padding on both left and right
 
-    # Generate and store the sides of the polygon
-    sides = set()
-    corners = set(compressed_points)
+    # Generate and store the green_tiles (sides) of the polygon
+    green_tiles = set()
+    red_tiles = set(compressed_points)
     for i in range(len(compressed_points)):
         r1, c1 = compressed_points[i]
         r2, c2 = compressed_points[(i+1)%num_points]
-        if r1 == r2:
-            for c in range(min(c1, c2)+1, max(c1, c2)):
-                sides.add((r1, c))
-        else:
-            for r in range(min(r1, r2)+1, max(r1, r2)):
-                sides.add((r, c1))
+        for c in range(min(c1, c2)+1, max(c1, c2)):
+            green_tiles.add((r1, c))
+        for r in range(min(r1, r2)+1, max(r1, r2)):
+            green_tiles.add((r, c1))
 
     # Flood fill the outside of the polygon
     q = [(0, 0)] # We know 0, 0 is not inside the polygon because we added padding
@@ -63,7 +61,7 @@ def solve(data):
             ar, ac = adj
             if not (0 <= ar < rows and 0 <= ac < cols):
                 continue
-            if adj in outside or adj in corners or adj in sides:
+            if adj in outside or adj in red_tiles or adj in green_tiles:
                 continue
             q.append(adj)
             outside.add(adj)
