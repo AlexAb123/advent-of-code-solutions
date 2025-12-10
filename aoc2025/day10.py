@@ -69,7 +69,10 @@ def solve(data):
         # Has to equal the target 
         # [3, 5, 4, 7]
         # 
-        # So A_eq is the first matrix, and b_eq is the target
+        # So A_eq is the first matrix, and b_eq is the target.
+        # 
+        # The function we are minimizing is the sum of all xi
+        # Which is equal to c @ xs because c = [1, 1, 1, 1, 1, 1]
         A_eq = np.array([button for button in buttons]).T
         b_eq = np.array(machine[2], dtype=int)
         bounds = [(0, None) for _ in range(len(c))]
