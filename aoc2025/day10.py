@@ -55,7 +55,8 @@ def solve(data):
         integrality = np.array([1 for _ in range(len(buttons))]) # All xs must be integers
         
         # Transpose so that each button is its own column because each button is associated with 
-        # one x (the number of times to press that specific button)
+        # one x (the number of times to press that specific button). The dimensions of the matrix would be
+        # wrong if we didnt transpose anyway so it becomes obvious that it's correct.
         # For first example input:
         # [[0, 0, 0, 0, 1, 1],
         #  [0, 1, 0, 0, 0, 1],
@@ -78,7 +79,6 @@ def solve(data):
         bounds = [(0, None) for _ in range(len(c))]
         res = linprog(c, A_eq=A_eq, b_eq=b_eq, bounds=bounds, integrality=integrality)
         part2 += res.fun
-        
     part2 = int(part2)
     return part1, part2
     
