@@ -9,7 +9,7 @@ def solve(data):
     def dfs(curr, target):
         if curr == target:
             return 1
-        return sum(dfs(adj, target) for adj in adjs.get(curr, {}))
+        return sum(dfs(adj, target) for adj in adjs.get(curr, set()))
     
     part1 = dfs("you", "out")
     part2 = dfs("svr", "dac") * dfs("dac", "fft") * dfs("fft", "out") + dfs("svr", "fft") * dfs("fft", "dac") * dfs("dac", "out")
