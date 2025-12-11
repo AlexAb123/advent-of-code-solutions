@@ -7,7 +7,7 @@ file_template = """def solve(data):
 
     part1 = part2 = 0
 
-
+    
 
     return part1, part2
 
@@ -29,8 +29,7 @@ path = Path(__file__).with_name("aoc" + year)
 if not os.path.exists(path):
     path.mkdir()
 
-for day in (map(str, range(1, days + 1))):
-
+for day in map(str, range(1, days + 1)):
     if len(day) == 1:
         day = "0" + day
 
@@ -52,4 +51,6 @@ for day in (map(str, range(1, days + 1))):
         print(f"Created file: inputs{os.sep}day{day}.txt")
         files_created += 1
 
-print(f"Created {files_created} file.") if files_created == 1 else print(f"Created {files_created} files.")
+print(f"Created {files_created} file.") if files_created == 1 else print(
+    f"Created {files_created} files."
+)
