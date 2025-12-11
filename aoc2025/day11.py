@@ -3,7 +3,7 @@ from functools import cache
 def solve(data):
 
     lines = [line.split(": ") for line in data.split("\n")]
-    adjs = {device: set(adj.split(" ")) for device, adj in lines}
+    adjs = {device: set(outputs.split(" ")) for device, outputs in lines}
         
     @cache
     def dfs(curr, target):
