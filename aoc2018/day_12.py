@@ -2,10 +2,36 @@ from pathlib import Path
 
 def solve():
 
-    lines = Path(__file__).with_name('day_12_input.txt').open('r').read().strip().split("\n")
-
-    print(lines)
-
+    initial_state, notes  = Path(__file__).with_name('day_12_input.txt').open('r').read().strip().split("\n\n")
+    initial_state =  initial_state.split(": ")[1]
+    notes = notes.split("\n")
+    
+    notes = {note.split(" => ")[0]: note.split(" => ")[1] for note in notes}
+    
+    pots = initial_state
+    if pots[0] == "#":
+        pots += ".."
+    elif pots[1]  == "#":
+        pots += "."
+    generations = 20
+    for _ in range(generations):
+        new_pots = ""
+        if pots[0] == "#":
+            new_pots += ".."
+        elif pots[1]  == "#":
+            new_pots += "."
+        for i in range(len(pots)):
+            new_pots += notes.get(pots[i-2:i+3], ".")
+            
+        if new_pots[-1] == "#":
+            new_pots += ".."
+        elif new_pots[-2] == "#":
+            new_pots += "."
+        print(pots)
+        
+        pots = new_pots
+        
+    
     part1 = 0
     part2 = 0
 

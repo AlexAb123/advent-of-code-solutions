@@ -1,11 +1,15 @@
+from collections import defaultdict
 def solve(data):
 
     lines = data.split("\n")
 
     part1 = part2 = 0
 
-    
-
+    adjs = defaultdict(set)
+    for line in lines:
+        inp, out = line.split(" => ")
+        adjs[]
+        print(inp, out)
     return part1, part2
 
 if __name__ == "__main__":
