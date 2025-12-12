@@ -8,7 +8,6 @@ def solve(data):
 
     lines = data
 
-    part1 = part2 = 0
 
     shapes = [tuple(map(tuple, (line.split("\n")[1:]))) for line in lines[:94].split("\n\n")]
     regions = [line.split(": ") for line in lines[96:].split("\n")]
@@ -51,7 +50,7 @@ def solve(data):
                 if shapes[i][r][c] == "#":
                     count += 1
         shape_spaces[i] = count
-    print(shape_spaces)
+    #print(shape_spaces)
     cache_ = {}
     def can_fit_presents(region, shape_counts):
         key = (tuple(map(tuple, region)), tuple(shape_counts))
@@ -72,7 +71,7 @@ def solve(data):
         if total_space_left < total_space_needed:
             cache_[key] = False
             return False
-        print(total_space_left, total_space_needed)
+        #print(total_space_left, total_space_needed)
         #print(shape_counts)
         
         for i in range(len(shape_counts)):
@@ -82,8 +81,9 @@ def solve(data):
         
         # PLACE THE NEXT PRESENT in all valid places
         # 
-        print(region, shape_counts)
+        #print(region, shape_counts)
         # 
+        #print(shape_counts)
         
 
         for shape in rotations(shapes[shape_idx]):
@@ -112,9 +112,8 @@ def solve(data):
     for dimensions, shape_counts in regions:
         region = np.array([["." for _ in range(dimensions[0])] for _ in range(dimensions[1])])
         part1 += can_fit_presents(region, shape_counts)
-        print(part1)
         
-    
+    part2 = "Decorate the North pole"
 
     return part1, part2
 
