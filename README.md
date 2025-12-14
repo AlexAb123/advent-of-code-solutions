@@ -42,7 +42,7 @@ aoc2025/
 ### Generated File Template
 
 Each `dayXX.py` file comes with a starter template.
-Running a `dayXX.py` file directly sets the `input_path` parameter as the path to the correpsonding input file (`inputs/dayXX.txt`).
+Running a `dayXX.py` file directly sets the `data` parameter as the text found in to the correpsonding input file (`inputs/dayXX.txt`) as a string.
 Implement the `solve` function with `part1` and `part2` as your answers for each part respectively.
 
 ```python
